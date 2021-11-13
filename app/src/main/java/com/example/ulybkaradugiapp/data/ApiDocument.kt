@@ -1,4 +1,4 @@
-package com.example.ulybkaradugiapp
+package com.example.ulybkaradugiapp.data
 
 data class ApiDocument(
     val id_pos: Int,
