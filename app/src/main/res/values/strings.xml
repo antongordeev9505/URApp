@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UlybkaRadugiApp</string>
+    <string name="index_number">Порядковый номер</string>
+    <string name="document_id">Идендефикатор документа</string>
+    <string name="document_group">Группа документа</string>
+    <string name="number_of_order">Текстовый номер заказа</string>
 </resources>
