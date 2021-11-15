@@ -4,13 +4,13 @@ import com.example.ulybkaradugiapp.api.GetDocumentsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
@@ -23,6 +23,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGetDocumentsApi(retrofit: Retrofit) =
+    fun provideGetDocumentsApi(retrofit: Retrofit) : GetDocumentsApi =
         retrofit.create(GetDocumentsApi::class.java)
 }
