@@ -10,7 +10,15 @@ class DocumentsViewModel @Inject constructor(
     private val repository: GetDocumentsRepository
 ) : ViewModel() {
 
-//    LiveData that has values collected from the origin Flow
-//    coroutine inside
-    val documents = repository.getDocuments().asLiveData()
+    private val reload = MutableLiveData(false)
+
+    val documents = reload.switchMap {
+//        LiveData that has values collected from the origin Flow
+//        coroutine inside
+        repository.getDocuments().asLiveData()
+    }
+
+    fun reloadList() {
+        reload.value = true
+    }
 }

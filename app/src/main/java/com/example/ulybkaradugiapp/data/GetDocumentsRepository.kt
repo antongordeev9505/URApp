@@ -1,5 +1,6 @@
 package com.example.ulybkaradugiapp.data
 
+import android.util.Log
 import androidx.room.withTransaction
 import com.example.ulybkaradugiapp.api.GetDocumentsApi
 import com.example.ulybkaradugiapp.other.networkBoundResource
@@ -16,14 +17,17 @@ class GetDocumentsRepository @Inject constructor(
 
     fun getDocuments() = networkBoundResource(
         query = {
+            Log.d("proverka", "db")
             documentsDao.getAllDocuments()
         },
         fetch = {
+            Log.d("proverka", "fetch")
             delay(2000)
             api.getListOfDocuments()
         },
         saveFetchResult = { documents ->
             db.withTransaction {
+                Log.d("proverka", "save")
                 documentsDao.deleteAllDocuments()
                 documentsDao.insertDocument(documents.data)
             }
