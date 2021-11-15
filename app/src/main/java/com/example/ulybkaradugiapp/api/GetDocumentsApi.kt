@@ -12,4 +12,7 @@ interface GetDocumentsApi {
 
     @GET("/api/getdocumentlist")
     suspend fun getListOfDocuments(): ApiResponse
+//
+//    @GET("/api/getdocument")
+//    suspend fun getDocument(@Query("id") documentId: Int): ApiDocument
 }

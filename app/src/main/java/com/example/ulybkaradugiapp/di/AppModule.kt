@@ -1,8 +1,11 @@
 package com.example.ulybkaradugiapp.di
 
+import android.app.Application
+import androidx.room.Room
 import com.example.ulybkaradugiapp.api.GetDocumentsApi
 import com.example.ulybkaradugiapp.api.GetDocumentsApi.Companion.login
 import com.example.ulybkaradugiapp.api.GetDocumentsApi.Companion.password
+import com.example.ulybkaradugiapp.data.DocumentDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,4 +60,10 @@ object AppModule {
     @Singleton
     fun provideGetDocumentsApi(retrofit: Retrofit) : GetDocumentsApi =
         retrofit.create(GetDocumentsApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application) : DocumentDatabase =
+        Room.databaseBuilder(app, DocumentDatabase::class.java, "document_database")
+            .build()
 }
