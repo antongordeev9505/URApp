@@ -31,9 +31,15 @@ class DocumentsAdapter :
         fun bind(document: ApiDocument) {
             binding.apply {
                 indexNumber.text = document.id_pos.toString()
-                documentId.text = document.id_record.toString()
-                documentGroup.text = document.nom_route
-                numberOfOrder.text = document.nom_zak
+
+                val textDocumentId = "Идентификатор документа: ${document.id_record}"
+                documentId.text = textDocumentId
+
+                val textDocumentGroup = "Наименование группы документа: ${document.nom_route}"
+                documentGroup.text = textDocumentGroup
+
+                val textNumberOfOrder = "Текстовый номер заказа: ${document.nom_zak}"
+                numberOfOrder.text = textNumberOfOrder
             }
         }
     }
