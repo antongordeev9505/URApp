@@ -15,6 +15,7 @@ class GetDocumentsRepository @Inject constructor(
 ) {
     private val documentsDao = db.documentDao()
 
+    //метод для получения данных и кэширования их
     fun getDocuments() = networkBoundResource(
         query = {
             Log.d("proverka", "db")
@@ -26,6 +27,7 @@ class GetDocumentsRepository @Inject constructor(
             api.getListOfDocuments()
         },
         saveFetchResult = { documents ->
+            //удаление и вставка данных совершается одним действием
             db.withTransaction {
                 Log.d("proverka", "save")
                 documentsDao.deleteAllDocuments()

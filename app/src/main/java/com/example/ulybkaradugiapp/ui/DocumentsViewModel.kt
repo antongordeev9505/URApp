@@ -12,9 +12,10 @@ class DocumentsViewModel @Inject constructor(
 
     private val reload = MutableLiveData(false)
 
+    //запускается, когда меняется значение reload - чтобы обновить список
     val documents = reload.switchMap {
-//        LiveData that has values collected from the origin Flow
-//        coroutine inside
+        //конвертация flow в liveData
+        //данные обозреваем (подписывваемся на изменения) во фрагменте
         repository.getDocuments().asLiveData()
     }
 

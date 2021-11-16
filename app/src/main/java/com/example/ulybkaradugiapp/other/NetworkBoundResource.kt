@@ -4,14 +4,15 @@ import kotlinx.coroutines.flow.*
 
 //ResultType - get from db
 //RequestType - get from api
+//кэширование данных
 inline fun <ResultType, RequestType> networkBoundResource(
-    //db
+    //db - получение данных из бд
     crossinline query: () -> Flow<ResultType>,
-    //api
+    //api - получение данных с сервера
     crossinline fetch: suspend () -> RequestType,
-    //store to db
+    //store to db - сохранение полученных данных с сервера в бд
     crossinline saveFetchResult: suspend (RequestType) -> Unit,
-    //fetch data from api or not
+    //fetch data from api or not - решение о получении данных с сервера
     crossinline shouldFetch: (ResultType) -> Boolean = { true }
 ) = flow {
     val data = query().first()

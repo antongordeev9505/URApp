@@ -3,6 +3,7 @@ package com.example.ulybkaradugiapp.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+//модель документа, сохраняем в бд
 @Entity(tableName = "documents")
 data class ApiDocument(
     val id_pos: Int,

@@ -56,6 +56,7 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.reload_list -> {
+                //обновляем список
                 viewModel.reloadList()
                 Toast.makeText(activity, "Список обновлен", Toast.LENGTH_SHORT).show()
                 true
