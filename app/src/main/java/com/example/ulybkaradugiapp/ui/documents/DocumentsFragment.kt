@@ -1,4 +1,4 @@
-package com.example.ulybkaradugiapp.ui
+package com.example.ulybkaradugiapp.ui.documents
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,15 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.ulybkaradugiapp.R
 import com.example.ulybkaradugiapp.other.Resource
+import com.example.ulybkaradugiapp.ui.DividerItemDecoration
+import com.example.ulybkaradugiapp.ui.DocumentsAdapter
+import com.example.ulybkaradugiapp.ui.DocumentsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_documents.*
 
 @AndroidEntryPoint
-class DocumentsFragment : Fragment(R.layout.fragment_documents) {
+class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapter.OnItemClickListener{
 
-    private val adapter = DocumentsAdapter()
+    private val adapter = DocumentsAdapter(this)
     private val viewModel: DocumentsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,5 +67,10 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents) {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onItemClick() {
+        val action = DocumentsFragmentDirections.actionDocumentsFragmentToDetailFragment()
+        findNavController().navigate(action)
     }
 }

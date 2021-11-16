@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/documentsFragment"
-        android:name="com.example.ulybkaradugiapp.ui.DocumentsFragment"
+        android:name="com.example.ulybkaradugiapp.ui.documents.DocumentsFragment"
         android:label="fragment_documents"
-        tools:layout="@layout/fragment_documents" />
+        tools:layout="@layout/fragment_documents" >
+        <action
+            android:id="@+id/action_documentsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.ulybkaradugiapp.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

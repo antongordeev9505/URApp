@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/layout/fragment_detail.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/layout/fragment_documents.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/layout/fragment_list_of_documents.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/layout/item_detail_document.xml" value="0.4" />
         <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/layout/item_document.xml" value="0.4" />
         <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/menu/menu_documents_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Anton/AndroidStudioProjects/ANDprojects/UlybkaRadugiApp/app/src/main/res/xml/network_security_config.xml" value="0.1" />

@@ -5,4 +5,8 @@
     <string name="document_group">Группа документа</string>
     <string name="number_of_order">Текстовый номер заказа</string>
     <string name="reload_list">Обновить список</string>
+    <string name="element_name">Наименование элемента</string>
+    <string name="element_group">Наименование группы</string>
+    <string name="element_category">Наименование категории</string>
+    <string name="element_amount">Количество элементов</string>
 </resources>

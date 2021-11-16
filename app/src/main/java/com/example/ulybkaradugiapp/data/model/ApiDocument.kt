@@ -1,4 +1,4 @@
-package com.example.ulybkaradugiapp.data
+package com.example.ulybkaradugiapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

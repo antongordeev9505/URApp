@@ -1,6 +1,6 @@
 package com.example.ulybkaradugiapp.api
 
-import com.example.ulybkaradugiapp.data.ApiDocument
+import com.example.ulybkaradugiapp.data.model.ApiDocument
 
 //модель для получения данных с сервера
 data class ApiResponse(

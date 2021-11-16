@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ulybkaradugiapp.data.ApiDocument
+import com.example.ulybkaradugiapp.data.model.ApiDocument
 import com.example.ulybkaradugiapp.databinding.ItemDocumentBinding
 
-class DocumentsAdapter :
+class DocumentsAdapter(private val listener: OnItemClickListener) :
     ListAdapter<ApiDocument, DocumentsAdapter.DocumentViewHolder>(DocumentComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
@@ -22,6 +22,10 @@ class DocumentsAdapter :
         val currentItem = getItem(position)
         if (currentItem != null) {
             holder.bind(currentItem)
+        }
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick()
         }
     }
 
@@ -42,6 +46,10 @@ class DocumentsAdapter :
                 numberOfOrder.text = textNumberOfOrder
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick()
     }
 
     class DocumentComparator : DiffUtil.ItemCallback<ApiDocument>() {
