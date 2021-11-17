@@ -1,6 +1,7 @@
 package com.example.ulybkaradugiapp.ui.documents
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -69,8 +70,8 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
         }
     }
 
-    override fun onItemClick() {
-        val action = DocumentsFragmentDirections.actionDocumentsFragmentToDetailFragment()
+    override fun onItemClick(idDocument: Int) {
+        val action = DocumentsFragmentDirections.actionDocumentsFragmentToDetailFragment(idDocument)
         findNavController().navigate(action)
     }
 }

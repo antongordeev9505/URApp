@@ -18,5 +18,9 @@
         android:id="@+id/detailFragment"
         android:name="com.example.ulybkaradugiapp.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="idDocument"
+            app:argType="integer" />
+    </fragment>
 </navigation>

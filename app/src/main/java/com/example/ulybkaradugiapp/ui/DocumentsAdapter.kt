@@ -25,7 +25,7 @@ class DocumentsAdapter(private val listener: OnItemClickListener) :
         }
 
         holder.itemView.setOnClickListener {
-            listener.onItemClick()
+            listener.onItemClick(currentItem.id_record)
         }
     }
 
@@ -49,7 +49,7 @@ class DocumentsAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(idDocument: Int)
     }
 
     class DocumentComparator : DiffUtil.ItemCallback<ApiDocument>() {
