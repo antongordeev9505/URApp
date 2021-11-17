@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ulybkaradugiapp.R
 import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import com.example.ulybkaradugiapp.databinding.ItemDetailDocumentBinding
 
-class DetailAdapter :
+class DetailAdapter(private val listener: OnItemClickListener) :
     ListAdapter<DocumentDetail, DetailAdapter.DetailViewHolder>(DetailComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder {
@@ -23,6 +24,10 @@ class DetailAdapter :
         if (currentItem != null) {
             holder.bind(currentItem)
         }
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(currentItem)
+        }
     }
 
     class DetailViewHolder(private val binding: ItemDetailDocumentBinding) :
@@ -30,6 +35,12 @@ class DetailAdapter :
 
         fun bind(detail: DocumentDetail) {
             binding.apply {
+
+                if (detail.isReady) {
+                    isReadyPoint.setImageResource(R.drawable.ic_baseline_check_circle_24)
+                } else {
+                    isReadyPoint.setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
+                }
 
                 val textElementName = "Наименование элемента: ${detail.pos_name}"
                 elementName.text = textElementName
@@ -47,6 +58,10 @@ class DetailAdapter :
                 documentId.text = textDocumentCategory
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(detail: DocumentDetail)
     }
 
     class DetailComparator : DiffUtil.ItemCallback<DocumentDetail>() {

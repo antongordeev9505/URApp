@@ -1,9 +1,6 @@
 package com.example.ulybkaradugiapp.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +15,7 @@ interface DetailDao {
 
     @Query("DELETE FROM details WHERE id_hd_nakl = :idDocument")
     suspend fun deleteDetailsByDocument(idDocument: Int)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(detail: DocumentDetail)
 }

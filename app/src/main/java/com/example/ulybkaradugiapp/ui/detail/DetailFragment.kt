@@ -1,7 +1,6 @@
 package com.example.ulybkaradugiapp.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -9,18 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.ulybkaradugiapp.R
+import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import com.example.ulybkaradugiapp.other.Resource
 import com.example.ulybkaradugiapp.ui.DetailAdapter
 import com.example.ulybkaradugiapp.ui.DividerItemDecoration
 import com.example.ulybkaradugiapp.ui.DocumentsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_documents.*
 
 @AndroidEntryPoint
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class DetailFragment : Fragment(R.layout.fragment_detail), DetailAdapter.OnItemClickListener {
 
-    private val adapter = DetailAdapter()
+    private val adapter = DetailAdapter(this)
     private val viewModel: DocumentsViewModel by viewModels()
     private val args by navArgs<DetailFragmentArgs>()
 
@@ -49,5 +48,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         context?.let {
             recycler_view_detail.addItemDecoration(DividerItemDecoration(ContextCompat.getColor(it, R.color.black), heightInPixels))
         }
+    }
+
+    override fun onItemClick(detail: DocumentDetail) {
+        detail.isReady = !detail.isReady
+        viewModel.update(detail)
     }
 }

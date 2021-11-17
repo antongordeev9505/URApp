@@ -10,5 +10,6 @@ data class DocumentDetail(
     val id_hd_nakl: Int,
     val pos_category_name: String,
     val pos_group_name: String,
-    val pos_name: String
+    val pos_name: String,
+    var isReady: Boolean = false
 )

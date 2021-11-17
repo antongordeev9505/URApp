@@ -1,14 +1,11 @@
 package com.example.ulybkaradugiapp.ui
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import com.example.ulybkaradugiapp.data.GetDocumentsRepository
-import com.example.ulybkaradugiapp.other.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,4 +25,15 @@ class DocumentsViewModel @Inject constructor(
 
     fun getDetails(idDocument: Int) =
         repository.getDetails(idDocument).asLiveData()
+
+    fun update(detail: DocumentDetail) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.update(detail)
+        }
+    }
+//    init {
+//        viewModelScope.launch {
+//            repository.getDetails(115725295)
+//        }
+//    }
 }

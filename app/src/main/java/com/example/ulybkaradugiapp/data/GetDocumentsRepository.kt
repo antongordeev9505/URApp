@@ -3,8 +3,8 @@ package com.example.ulybkaradugiapp.data
 import android.util.Log
 import androidx.room.withTransaction
 import com.example.ulybkaradugiapp.api.GetDocumentsApi
+import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import com.example.ulybkaradugiapp.other.networkBoundResource
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -47,4 +47,8 @@ class GetDocumentsRepository @Inject constructor(
             }
         }
     )
+
+    suspend fun update(detail: DocumentDetail){
+        detailDao.update(detail)
+    }
 }
