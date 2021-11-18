@@ -39,7 +39,4 @@ class DocumentsViewModel @Inject constructor(
             repository.tryUpdateDetails(idDocument)
         }
     }
-
-//    fun getAmountFromHeader(idDocument: Int, shouldFetch: Boolean) =
-//        repository.getHeader(idDocument,shouldFetch).asLiveData()
 }

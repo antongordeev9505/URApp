@@ -20,14 +20,4 @@ interface DetailDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateIsReadyField(detail: DocumentDetail)
 
-////    //header
-////
-//    @Query("SELECT * FROM header WHERE id_hd_nakl = :idDocument")
-//    fun getHeaderByDocument(idDocument: Int): Flow<DocumentHeader>
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertHeader(header: DocumentHeader)
-//
-//    @Query("DELETE FROM header WHERE id_hd_nakl = :idDocument")
-//    suspend fun deleteHeaderByDocument(idDocument: Int)
 }

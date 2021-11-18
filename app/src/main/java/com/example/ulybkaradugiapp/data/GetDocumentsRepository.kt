@@ -70,34 +70,4 @@ class GetDocumentsRepository @Inject constructor(
             Log.d("error", "no connection")
         }
     }
-
-
-//    fun getHeader(idDocument: Int, shouldFetch: Boolean) = networkBoundResource(
-//        query = {
-//            detailDao.getHeaderByDocument(idDocument)
-//        },
-//        fetch = {
-//            api.getDocument(idDocument)
-//        },
-//        saveFetchResult = { header ->
-//            db.withTransaction {
-//                detailDao.deleteHeaderByDocument(idDocument)
-//                detailDao.insertHeader(header.data.data1)
-//            }
-//        },
-//        shouldFetch = {shouldFetch}
-//    )
-
-//    suspend fun getHeader(idDocument: Int): Int {
-//        return try {
-//            val header = api.getDocument(idDocument)
-//            db.withTransaction {
-//                detailDao.insertHeader(header.data.data1)
-//                detailDao.getHeaderByDocument(idDocument)
-//            }
-//
-//        } catch (error: Throwable){
-//            Log.d("error", "no connection")
-//        }
-//    }
 }

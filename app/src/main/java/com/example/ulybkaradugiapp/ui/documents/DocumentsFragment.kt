@@ -39,10 +39,7 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
     private fun observeResult() {
         viewModel.documents.observe(viewLifecycleOwner) { result ->
             documentsList = result
-//            getAmount()
-
             adapter.submitList(result.data)
-
 
             progress_bar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
             progress_bar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
@@ -50,25 +47,6 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
             text_view_error.text = result.error?.localizedMessage
         }
     }
-
-//    private fun getAmount( ) {
-//        documentsList?.data?.map { it.id_record }?.forEach {
-//            viewModel.getAmountFromHeader(it, true).observe(viewLifecycleOwner) { result ->
-//                documentsList?.data?.map { apiDocument ->
-//                    apiDocument.amount = result.data?.place_count ?: 0
-//                }
-//            }
-//        }
-//
-//
-////        documentsList?.data?.map { it.id_record }?.forEach {
-////            viewModel.getAmountFromHeader(it, true).observe(viewLifecycleOwner) { result->
-////                documentsList?.data?.map { apiDocument ->
-////                    apiDocument.amount = result.data?.size ?: 0
-////                }
-////            }
-////        }
-//    }
 
     private fun updateDocuments() {
         viewModel.reloadList(true)
