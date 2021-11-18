@@ -1,7 +1,6 @@
 package com.example.ulybkaradugiapp.ui.documents
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -13,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ulybkaradugiapp.R
-import com.example.ulybkaradugiapp.data.GetDocumentsRepository
+import com.example.ulybkaradugiapp.data.model.ApiDocument
 import com.example.ulybkaradugiapp.other.Resource
 import com.example.ulybkaradugiapp.ui.DividerItemDecoration
 import com.example.ulybkaradugiapp.ui.DocumentsAdapter
@@ -26,6 +25,7 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
 
     private val adapter = DocumentsAdapter(this)
     private val viewModel: DocumentsViewModel by viewModels()
+    private var documentsList: Resource<List<ApiDocument>>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,8 +38,11 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
 
     private fun observeResult() {
         viewModel.documents.observe(viewLifecycleOwner) { result ->
+            documentsList = result
+//            getAmount()
+
             adapter.submitList(result.data)
-            result.data?.map { it.id_record }?.let { storeDetail(it) }
+
 
             progress_bar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
             progress_bar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
@@ -47,8 +50,34 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
             text_view_error.text = result.error?.localizedMessage
         }
     }
-    private fun storeDetail(list: List<Int>) {
-//        list.forEach { viewModel.getDetails1(it) }
+
+//    private fun getAmount( ) {
+//        documentsList?.data?.map { it.id_record }?.forEach {
+//            viewModel.getAmountFromHeader(it, true).observe(viewLifecycleOwner) { result ->
+//                documentsList?.data?.map { apiDocument ->
+//                    apiDocument.amount = result.data?.place_count ?: 0
+//                }
+//            }
+//        }
+//
+//
+////        documentsList?.data?.map { it.id_record }?.forEach {
+////            viewModel.getAmountFromHeader(it, true).observe(viewLifecycleOwner) { result->
+////                documentsList?.data?.map { apiDocument ->
+////                    apiDocument.amount = result.data?.size ?: 0
+////                }
+////            }
+////        }
+//    }
+
+    private fun updateDocuments() {
+        viewModel.reloadList(true)
+    }
+
+    private fun cacheDetails() {
+        documentsList?.data?.map { it.id_record }?.forEach {
+            viewModel.getDetailsToStore(it)
+        }
     }
 
     private fun setDividerItemDecoration() {
@@ -66,9 +95,13 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents), DocumentsAdapte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.reload_list -> {
-                //обновляем список
-                viewModel.reloadList()
+                updateDocuments()
                 Toast.makeText(activity, "Список обновлен", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.cache_details -> {
+                cacheDetails()
+                Toast.makeText(activity, "Все детали документов скачаны", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

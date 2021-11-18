@@ -5,6 +5,7 @@ import androidx.room.withTransaction
 import com.example.ulybkaradugiapp.api.GetDocumentsApi
 import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import com.example.ulybkaradugiapp.other.networkBoundResource
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,7 +18,7 @@ class GetDocumentsRepository @Inject constructor(
     private val detailDao = db.detailDao()
 
     //метод для получения данных и кэширования их
-    fun getDocuments() = networkBoundResource(
+    fun getDocuments(shouldFetch: Boolean) = networkBoundResource(
         query = {
             documentsDao.getAllDocuments()
         },
@@ -30,10 +31,10 @@ class GetDocumentsRepository @Inject constructor(
                 documentsDao.deleteAllDocuments()
                 documentsDao.insertDocument(documents.data)
             }
-        }
+        }, {shouldFetch}
     )
 
-    fun getDetails(idDocument: Int) = networkBoundResource(
+    fun getDetails(idDocument: Int, shouldFetch: Boolean) = networkBoundResource(
         query = {
             detailDao.getDetailsByDocument(idDocument)
         },
@@ -45,10 +46,58 @@ class GetDocumentsRepository @Inject constructor(
                 detailDao.deleteDetailsByDocument(idDocument)
                 detailDao.insertDetail(details.data.data2)
             }
-        }
+        },
+        shouldFetch = {shouldFetch}
     )
 
-    suspend fun update(detail: DocumentDetail){
-        detailDao.update(detail)
+    suspend fun updateDetail(detail: DocumentDetail){
+        detailDao.updateIsReadyField(detail)
     }
+
+    private fun shouldUpdateDetails(): Boolean {
+        return true
+    }
+
+    suspend fun tryUpdateDetails(idDocument: Int) {
+        if (shouldUpdateDetails()) fetchDetails(idDocument)
+    }
+
+    private suspend fun fetchDetails(idDocument: Int) {
+        try {
+            val details = api.getDocument(idDocument)
+            detailDao.insertDetail(details.data.data2)
+        } catch (error: Throwable){
+            Log.d("error", "no connection")
+        }
+    }
+
+
+//    fun getHeader(idDocument: Int, shouldFetch: Boolean) = networkBoundResource(
+//        query = {
+//            detailDao.getHeaderByDocument(idDocument)
+//        },
+//        fetch = {
+//            api.getDocument(idDocument)
+//        },
+//        saveFetchResult = { header ->
+//            db.withTransaction {
+//                detailDao.deleteHeaderByDocument(idDocument)
+//                detailDao.insertHeader(header.data.data1)
+//            }
+//        },
+//        shouldFetch = {shouldFetch}
+//    )
+
+//    suspend fun getHeader(idDocument: Int): Int {
+//        return try {
+//            val header = api.getDocument(idDocument)
+//            db.withTransaction {
+//                detailDao.insertHeader(header.data.data1)
+//                detailDao.getHeaderByDocument(idDocument)
+//            }
+//
+//        } catch (error: Throwable){
+//            Log.d("error", "no connection")
+//        }
+//    }
 }

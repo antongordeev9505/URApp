@@ -10,4 +10,5 @@
     <string name="element_category">Наименование категории</string>
     <string name="element_amount">Количество элементов</string>
     <string name="isready_point_description">isReady point</string>
+    <string name="cache_details">Кешировать данные</string>
 </resources>

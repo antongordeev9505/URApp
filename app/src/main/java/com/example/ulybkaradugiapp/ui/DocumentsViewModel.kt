@@ -3,6 +3,7 @@ package com.example.ulybkaradugiapp.ui
 import androidx.lifecycle.*
 import com.example.ulybkaradugiapp.data.model.DocumentDetail
 import com.example.ulybkaradugiapp.data.GetDocumentsRepository
+import com.example.ulybkaradugiapp.other.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,25 +16,30 @@ class DocumentsViewModel @Inject constructor(
 
     private val reload = MutableLiveData(false)
 
-    val documents = reload.switchMap {
-        repository.getDocuments().asLiveData()
+    val documents = reload.switchMap { shouldFetch ->
+        repository.getDocuments(shouldFetch).asLiveData()
     }
 
-    fun reloadList() {
-        reload.value = true
+    fun reloadList(shouldFetch: Boolean) {
+        reload.value = shouldFetch
     }
 
-    fun getDetails(idDocument: Int) =
-        repository.getDetails(idDocument).asLiveData()
+    fun getDetails(idDocument: Int, shouldFetch: Boolean) =
+        repository.getDetails(idDocument, shouldFetch).asLiveData()
 
-    fun update(detail: DocumentDetail) {
+
+    fun updateDetail(detail: DocumentDetail) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.update(detail)
+            repository.updateDetail(detail)
         }
     }
-//    init {
-//        viewModelScope.launch {
-//            repository.getDetails(115725295)
-//        }
-//    }
+
+    fun getDetailsToStore(idDocument: Int){
+        viewModelScope.launch {
+            repository.tryUpdateDetails(idDocument)
+        }
+    }
+
+//    fun getAmountFromHeader(idDocument: Int, shouldFetch: Boolean) =
+//        repository.getHeader(idDocument,shouldFetch).asLiveData()
 }

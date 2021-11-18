@@ -33,7 +33,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail), DetailAdapter.OnItemC
 
     private fun observeResult() {
         val idDocument = args.idDocument
-        viewModel.getDetails(idDocument).observe(viewLifecycleOwner) { details ->
+        viewModel.getDetails(idDocument, false).observe(viewLifecycleOwner) { details ->
             adapter.submitList(details.data)
 
             progress_bar_detail.isVisible = details is Resource.Loading && details.data.isNullOrEmpty()
@@ -52,6 +52,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail), DetailAdapter.OnItemC
 
     override fun onItemClick(detail: DocumentDetail) {
         detail.isReady = !detail.isReady
-        viewModel.update(detail)
+        viewModel.updateDetail(detail)
     }
 }

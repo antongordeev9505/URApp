@@ -8,4 +8,10 @@
         android:title="@string/reload_list"
         app:showAsAction="ifRoom|collapseActionView"/>
 
+    <item
+        android:id="@+id/cache_details"
+        android:icon="@drawable/ic_baseline_save_24"
+        android:title="@string/cache_details"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
 </menu>
